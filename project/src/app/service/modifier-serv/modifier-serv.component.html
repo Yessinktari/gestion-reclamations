@@ -1,0 +1,89 @@
+<div class="add-client-container">
+
+  <!-- 🔼 Header -->
+  <div class="form-header">
+    <button (click)="goBack()" class="back-btn">
+      <i class="bi bi-arrow-left"></i>
+      Retour
+    </button>
+    <div class="header-content">
+      <h1>Modifier un Service</h1>
+      <p>Remplissez les informations pour Modifier un Service</p>
+    </div>
+  </div>
+
+  <!-- 🔔 Message -->
+  <div class="message-container" *ngIf="message">
+    <div class="message" [class.error]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')">
+      <i class="bi"
+         [class.bi-exclamation-triangle]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')"
+         [class.bi-check-circle]="!message.includes('Erreur') && !message.includes('obligatoire') && !message.includes('invalide')">
+      </i>
+      {{ message }}
+      <button class="close-message" (click)="clearMessage()">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 🔤 Formulaire -->
+  <form (ngSubmit)="onUpdate()" class="client-form">
+    <div class="form-grid">
+
+      <!-- 🧾 Section Informations du Service -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="bi bi-person-circle"></i>
+          <h3>Informations du Service</h3>
+        </div>
+        <div class="form-group">
+          <label for="nom" class="required">Nom</label>
+          <input type="text" id="nom" name="nom" required [(ngModel)]="nom" placeholder="Entrez le nom du service" class="form-input" />
+        </div>
+      </div>
+
+      <!-- 💰 Section Prix -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="bi bi-geo-alt"></i>
+          <h3>Informations Prix</h3>
+        </div>
+        <div class="form-group">
+          <label for="montant">Prix HT</label>
+          <input type="number" id="montant" name="montant" min="0" [(ngModel)]="montant" (input)="updatePrixTTC()" placeholder="Prix Hors TVA" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label for="TVA">TVA (%)</label>
+          <input type="number" id="TVA" name="TVA" min="0" [(ngModel)]="TVA" (input)="updatePrixTTC()" placeholder="TVA" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label for="prixTOT">Prix TTC</label>
+          <input type="text" id="prixTOT" name="prixTOT" [value]="prixTOT" class="form-input" readonly />
+        </div>
+
+        <div class="form-group">
+          <label for="partESE">Part Entreprise</label>
+          <input type="text" id="partESE" name="partESE" [value]="partESE" class="form-input" readonly />
+        </div>
+
+        <div class="form-group">
+          <label for="partTech">Part Technicien</label>
+          <input type="text" id="partTech" name="partTech" [value]="partTech" class="form-input" readonly />
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Boutons d'action (hors form-grid) -->
+    <div class="form-actions">
+      <button type="button" (click)="goBack()" class="btn-secondary">
+        <i class="bi bi-x-circle"></i> Annuler
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        <i class="bi" [class.bi-plus-circle]="!isLoading" [class.bi-hourglass-split]="isLoading"></i>
+        {{ isLoading ? 'Modification en cours...' : 'Modifier Service' }}
+      </button>
+    </div>
+  </form>
+</div>

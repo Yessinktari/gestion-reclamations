@@ -1,0 +1,1026 @@
+/* Base Styles */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --light-gray: #ecf0f1;
+    --medium-gray: #bdc3c7;
+    --dark-gray: #7f8c8d;
+    --text-color: #2c3e50;
+    --white: #ffffff;
+    --success-color: #27ae60;
+    --error-color: #e74c3c;
+  }
+  
+  .main-content {
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--light-gray);
+    min-height: 100vh;
+  }
+  
+  .content-wrapper {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* Header Styles */
+  .form-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1.5rem;
+    
+    
+    
+  }
+  
+  .back-btn {
+    background-color: #6b7171;
+    border: 1px solid var(--medium-gray);
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  
+  .back-btn:hover {
+    background-color: #000;
+    border-color: var(--dark-gray);
+  }
+
+  
+  .header-content h1 {
+    font-size: 45px;
+    margin: 0;
+    color:#06133f;
+    font-weight: 800;
+    
+  }
+  
+  .header-content p {
+    margin: 0.5rem 0 0;
+    color: var(--dark-gray);
+  }
+  
+  .messageClose-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    background-color: rgba(255, 193, 7, 0.1); /* couleur d'alerte douce */
+    color: #ff9800;
+    border-left: 5px solid #ff9800;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+  
+  .messageClose-container i {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .messageClose-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  .message {
+    padding: 1rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  .message.error {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--error-color);
+    border-left: 4px solid var(--error-color);
+  }
+  
+  .message:not(.error) {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: var(--success-color);
+    border-left: 4px solid var(--success-color);
+  }
+  
+  .close-message {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: 1.25rem;
+
+  }
+  
+  /* Form Styles */
+  .client-form {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    border-color: #6b7171;
+    box-shadow:  solid #5d70ff;
+    
+  }
+  
+  .form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .form-section {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(44, 62, 80, 0.06);
+    padding: 2rem 2.5rem;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2.5rem;
+    transition: box-shadow 0.18s, border 0.18s;
+  }
+  
+  .form-section:hover {
+    box-shadow: 0 8px 32px rgba(44, 62, 80, 0.10);
+    border-color: #2563eb;
+  }
+ 
+  
+  .section-header {
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding-right: 2rem;
+    border-right: 2px solid #f1f5f9;
+  }
+
+  .section-header h3 {
+    margin: 0;
+    font-size: 1.22rem;
+    color: #174ea6;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  
+  .section-header i {
+    color: #2563eb;
+    font-size: 1.7rem;
+  }
+  
+  .section-header button {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #044169;
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: transform 0.2s;
+  }
+  
+  .section-header button:hover {
+    transform: scale(1.8);
+  }
+  
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  .form-group label {
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 1.04rem;
+    margin-bottom: 0.18rem;
+    letter-spacing: 0.1px;
+  }
+
+  
+  .form-group label.required::after {
+    content: " *";
+    color: var(--error-color);
+  }
+  
+  .form-input, .form-select, textarea {
+    width: 100%;
+    padding: 0.85rem 1.1rem;
+    border: 1.5px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 1.04rem;
+    background-color: #f8fafc;
+    transition: border 0.18s, box-shadow 0.18s;
+  }
+  
+  .form-input:focus, .form-select:focus, textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px #2563eb22;
+  }
+  
+  .form-input[readonly] {
+    background-color: #f1f5f9;
+    color: #7f8c8d;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+  
+  /* File Input */
+  .form-group input[type="file"] {
+    width: 100%;
+    padding: 0.5rem 0;
+    border: none;
+    border: 2px solid #06133f;
+    width: a;
+    padding: 25px;
+    
+  }
+  
+  /* Form Actions */
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+    margin-top: 2rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 0.85rem 2rem;
+    border-radius: 7px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    font-size: 1.08rem;
+    border: none;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    box-shadow: 0 1px 4px rgba(44, 62, 80, 0.07);
+  }
+  
+  .btn-primary {
+    background: #2563eb;
+    color: #fff;
+  }
+  
+  .btn-primary:hover:not(:disabled) {
+    background: #174ea6;
+    box-shadow: 0 4px 16px #2563eb22;
+  }
+  
+  .btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+ 
+.btn-secondary {
+    background: #f1f5f9;
+    color: #2563eb;
+    border: 1.5px solid #d1d5db;
+  }
+  
+  .btn-secondary:hover {
+    background: #e0e7ff;
+    color: #174ea6;
+  }
+  
+  
+  /* Icons */
+  .bi {
+    font-size: 1rem;
+  }
+  
+  /* Date and Time Inputs */
+  input[type="date"], input[type="time"] {
+    border: 1.5px solid #d1d5db;
+    border-radius: 7px;
+    padding: 15px;
+    background: #f8fafc;
+    color: #2c3e50;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 900px) {
+   
+    .form-section {
+      flex-direction: column;
+      padding: 1.1rem 0.6rem;
+      gap: 1.1rem;
+    }
+    .section-header {
+      min-width: 0;
+      padding-right: 0;
+      border-right: none;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+    .form-actions {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+  }
+
+  .form-section.etat-visite {
+    border-left: 5px solid #2563eb;
+    background: #f6faff;
+  }
+
+  .form-section.etat-visite .section-header i {
+    font-size: 1.5rem;
+  }
+
+  .form-section.etat-visite .section-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #123f87;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+  .form-section.etat-visite .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-section.etat-visite label {
+    font-size: 1rem;
+    color: #334155;
+    font-weight: 500;
+    margin-bottom: 2px;
+    letter-spacing: 0.2px;
+  }
+
+  .form-section.etat-visite input[type="checkbox"] {
+    accent-color: #2563eb;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(30,64,175,0.07);
+    transition: accent-color 0.2s;
+  }
+
+  .form-section.etat-visite select {
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    background: #f1f5f9;
+    color: #1e293b;
+    transition: border 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 2px rgba(30,64,175,0.04);
+  }
+
+  .form-section.etat-visite select:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 2px #2563eb33;
+  }
+
+  .form-group-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .input-block {
+    flex: 1 1 0;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+  }
+  .input-block label {
+    font-size: 0.97rem;
+    margin-bottom: 0.3rem;
+    color: #222;
+    font-weight: 500;
+  }
+  .input-block input {
+    margin-bottom: 0;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #fff;
+    transition: border 0.2s;
+  }
+  .input-block input:focus {
+    border-color: #1976d2;
+    outline: none;
+  }
+
+  .form-group-Service {
+    margin-bottom: 1.2rem;
+  }
+  .serviceSelectionne {
+    display: flex; 
+    gap: 15px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 14px;
+    box-shadow: 0 1px 4px rgba(44, 62, 80, 0.04);
+    transition: box-shadow 0.18s, border 0.18s;
+    overflow-x:auto;
+  }
+  .serviceSelectionne:hover {
+    box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+    border-color: #1976d2;
+  }
+  .serviceSelectionne label {
+    color: #374151;
+    font-size: 15px;
+    font-weight: 500;
+    padding-top: 5px;
+    margin-bottom: 0.1rem;
+  }
+  .serviceSelectionne input {
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    padding: 0.4rem 0.7rem;
+    font-size: 1rem;
+    background: #f9fafb;
+    transition: border 0.2s;
+  }
+  .serviceSelectionne input:focus {
+    border-color: #1976d2;
+    outline: none;
+    background: #fff;
+  }
+
+  .serviceSelectionne button {
+    background: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b91c1c;
+    font-size: 1.1rem;
+    transition: background 0.18s, color 0.18s;
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+  .serviceSelectionne button:hover {
+    background: #fef2f2;
+    color: #991b1b;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
+  .btn-primary, .btn-secondary {
+    padding: 0.45rem 1.1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background: #f5f5f5;
+    color: #1976d2;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-primary {
+    background: #1976d2;
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #125ea2;
+  }
+  .btn-secondary:hover {
+    background: #e3e8ef;
+  }
+
+  .btn-Art, .btn-Serv {
+    padding: 0.45rem 1.1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background: #f5f5f5;
+    color: #263747;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-Art {
+    background: #01407f;
+    color: #fff;
+  }
+  .btn-Art:hover {
+    background: #1172c7;
+  }
+  .btn-Serv:hover {
+    background: #707070;
+  }
+  .btn-Serv {
+    background: #000000;
+    color: white;
+  }
+
+  
+
+  @media (max-width: 800px) {
+    .form-group-row {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .serviceSelectionne {
+      min-width: 0;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.7rem 0.7rem;
+    }
+    .buttons {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+  }
+
+  .form-section-service-cout{
+    display: block;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(44, 62, 80, 0.06);
+    padding: 2rem 2.5rem;
+    border: 1px solid #e5e7eb;
+    gap: 2.5rem;
+    transition: box-shadow 0.18s, border 0.18s;
+  }
+  .articleSelectionne {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding-left:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    box-shadow: 0 1px 4px rgba(44,62,80,0.04);
+    transition: box-shadow 0.18s, border 0.18s;
+  }
+  .articleSelectionne:hover {
+    box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+    border-color: #1976d2;
+  }
+  .articleSelectionne label {
+    color: #374151;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 0.1rem;
+  }
+  .articleSelectionne input {
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    padding: 0.4rem 0.7rem;
+    font-size: 1rem;
+    background: #f9fafb;
+    transition: border 0.2s;
+  }
+  .articleSelectionne input:focus {
+    border-color: #1976d2;
+    outline: none;
+    background: #fff;
+  }
+
+  .articleSelectionne button {
+    background: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b91c1c;
+    font-size: 1.1rem;
+    transition: background 0.18s, color 0.18s;
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+  .articleSelectionne button:hover {
+    background: #fef2f2;
+    color: #991b1b;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
+  .btn-primary, .btn-secondary {
+    padding: 0.45rem 1.1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background: #f5f5f5;
+    color: #1976d2;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-primary {
+    background: #001c5f;
+    color: #ffffff;
+  }
+  .btn-primary:hover {
+    background: #066402;
+  }
+  .btn-secondary:hover {
+    background: #858585;
+  }
+  .btn-secondary {
+    background: #666666;
+    color: #ffffff;
+  }
+
+  @media (max-width: 800px) {
+    .form-group-Article {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .articleSelectionne {
+      min-width: 0;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.7rem 0.7rem;
+    }
+    .buttons {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+  }
+
+  .services-couts {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  
+  .section-header i {
+    font-size: 24px;
+    margin-right: 12px;
+    color: #4a6baf;
+  }
+  
+  .section-header h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  
+  /* Bloc des parts et coûts */
+  .costs-parts {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eaeff5;
+  }
+  
+  .cost-part {
+    flex: 1;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .cost-part label {
+    display: block;
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 8px;
+  }
+  
+  .cost-part .value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+  
+  /* Disposition horizontale des articles/services */
+  .items-horizontal {
+    margin-bottom: 25px;
+  }
+  
+  .items-horizontal h4 {
+    color: #334155;
+    font-size: 16px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .items-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .item-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    align-items: flex-start;
+  }
+  
+  .item-field {
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .item-field label {
+    display: block;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 5px;
+  }
+  
+  .item-field input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 14px;
+  }
+  
+  .item-field input[readonly] {
+    background-color: #f1f5f9;
+  }
+  
+  .delete-btn {
+    align-self: flex-end;
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+  }
+  
+  .delete-btn:hover {
+    background: #fecaca;
+  }
+  
+  /* Boutons d'action */
+  .action-buttons {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0;
+  }
+  
+  .add-btn {
+    background: #e0e7ff;
+    color: #4338ca;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  
+  .add-btn:hover {
+    background: #c7d2fe;
+  }
+  
+  /* Section Total */
+  .total-section {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .total-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #475569;
+  }
+  
+  .total-line.highlight {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 16px;
+  }
+  
+  .total-value {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+  }
+
+  /* --- Amélioration ciblée section Services et Coûts --- */
+
+  .form-section:has(.section-header h3:contains('Services et Coûts')) {
+    background: #f7fafd;
+    border: 1px solid #e0e7ef;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.05);
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .form-group-Article,
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .form-group-Service {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .articleSelectionne,
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .serviceSelectionne {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    background: #fff;
+    border: 1px solid #e0e7ef;
+    border-radius: 10px;
+    padding: 0.8rem 1.3rem;
+    font-size: 1rem;
+    box-shadow: 0 1px 6px rgba(44,62,80,0.04);
+    min-width: 220px;
+    margin-bottom: 0.5rem;
+    transition: box-shadow 0.18s, border 0.18s;
+  }
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .articleSelectionne:hover,
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .serviceSelectionne:hover {
+    box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+    border-color: #1976d2;
+  }
+
+  .form-section:has(.section-header h3:contains('Services et Coûts')) label {
+    color: #374151;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 0.1rem;
+  }
+  .form-section:has(.section-header h3:contains('Services et Coûts')) input {
+    border: 1px solid #e0e7ef;
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    font-size: 1rem;
+    background: #f9fafb;
+    transition: border 0.2s;
+  }
+  .form-section:has(.section-header h3:contains('Services et Coûts')) input:focus {
+    border-color: #1976d2;
+    outline: none;
+    background: #fff;
+  }
+
+  .form-section:has(.section-header h3:contains('Services et Coûts')) button {
+    background: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b91c1c;
+    font-size: 1.1rem;
+    transition: background 0.18s, color 0.18s;
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+  .form-section:has(.section-header h3:contains('Services et Coûts')) button:hover {
+    background: #fef2f2;
+    color: #991b1b;
+  }
+
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .btn-primary,
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .btn-secondary {
+    padding: 0.45rem 1.1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background: #f5f5f5;
+    color: #1976d2;
+    transition: background 0.2s, color 0.2s;
+  }
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .btn-primary {
+    background: #1976d2;
+    color: #fff;
+  }
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .btn-primary:hover {
+    background: #125ea2;
+  }
+  .form-section:has(.section-header h3:contains('Services et Coûts')) .btn-secondary:hover {
+    background: #e3e8ef;
+  }
+
+  @media (max-width: 800px) {
+    .form-section:has(.section-header h3:contains('Services et Coûts')) .form-group-Article,
+    .form-section:has(.section-header h3:contains('Services et Coûts')) .form-group-Service {
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .form-section:has(.section-header h3:contains('Services et Coûts')) .articleSelectionne,
+    .form-section:has(.section-header h3:contains('Services et Coûts')) .serviceSelectionne {
+      min-width: 0;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.7rem 0.7rem;
+    }
+    .form-section:has(.section-header h3:contains('Services et Coûts')) .buttons {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+  }
+  /* --- Fin amélioration ciblée --- */
+
+  /* Pour la section service-cout, s'assurer qu'elle prend bien toute la largeur disponible du main-content */
+  .form-section.service-cout {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  /* Empêche le débordement horizontal de la section même si beaucoup d'articles/services */
+  .All-items {
+    overflow-x: auto;
+    width: 100%;
+  }

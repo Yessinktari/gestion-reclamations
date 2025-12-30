@@ -1,0 +1,260 @@
+<!-- Header principal -->
+<header class="main-header">
+    <div class="header-container">
+      <img src="assets/images/image.png" alt="logo" class="logo-avatar" 
+               onerror="this.src='assets/images/user-avatar-male-5.svg'">
+               <div class="user-profile">
+                <button class="profile-btn" [matMenuTriggerFor]="menu">
+                  <div class="profile-avatar">
+                    <i class="bi bi-person-circle"></i>
+                  </div>
+                  <span class="profile-name">{{ NomEtPrenom }}</span>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="logout()">
+                    <i class="bi bi-box-arrow-right"></i> Déconnexion
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+  </header>
+  
+  <!-- Container principal avec sidebar et contenu -->
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" [class.collapsed]="isCollapsed">
+      <div class="sidebar-header">
+        <button class="toggle-btn" (click)="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+      <nav class="sidebar-nav" *ngIf="!isCollapsed">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a (click)="ToArticle()" class="nav-link">
+              <i class="bi bi-box"></i>
+              <span>Articles</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToClient()" class="nav-link">
+              <i class="bi bi-people"></i>
+              <span>Clients</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a  class="nav-link">
+              <i class="bi bi-shop"></i>
+              <span>Revendeurs</span>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a (click)="ToService()" class="nav-link">
+              <i class="bi bi-gear"></i>
+              <span>Services</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToTechnicien()" class="nav-link">
+              <i class="bi bi-tools"></i>
+              <span>Techniciens</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToReclamation()" class="nav-link">
+              <i class="bi bi-exclamation-triangle"></i>
+              <span>Réclamations</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-receipt"></i>
+              <span>Factures</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-file-text"></i>
+              <span>Devis</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <nav class="sidebar-nav" *ngIf="isCollapsed">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a (click)="ToArticle()" class="nav-link">
+              <i class="bi bi-box"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToClient()" class="nav-link">
+              <i class="bi bi-people"></i>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a  class="nav-link">
+              <i class="bi bi-shop"></i>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a (click)="ToService()" class="nav-link">
+              <i class="bi bi-gear"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToTechnicien()" class="nav-link">
+              <i class="bi bi-tools"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToReclamation()" class="nav-link">
+              <i class="bi bi-exclamation-triangle"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-receipt"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-file-text"></i>
+    
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+  
+    <main class="main-content" [class.sidebar-collapsed]="isCollapsed">
+      
+      
+      <router-outlet></router-outlet>
+      
+  
+      <div class="content-wrapper" *ngIf="!router.url.includes('AddRev') && !router.url.includes('UpdateRev')">
+        <!-- En-tête de page -->
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Gestion des Revendeurs</h2>
+            <p>Gérez vos Revendeurs et leurs informations</p>
+          </div>
+          <button class="btn-primary" (click)="create()">
+            <i class="bi bi-plus-circle"></i>
+            Ajouter un Revendeur
+          </button>
+        </div>
+  
+        <!-- Statistiques -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-shop"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ revendeurs.length }}</h3>
+              <p>Revendeurs totaux</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-exclamation-lg"></i>
+            </div>
+            <div class="stat-content">
+                <h3>{{ getTauxDonneesCompletes(revendeurs) }} %</h3>
+              <p>Taux des données complétes </p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="stat-content">
+              <h3>92%</h3>
+              <p>Niveau de satisfaction</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-telephone-fill"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{  getRevendeursWithPhone().length }}</h3>
+              <p>Avec téléphone</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Table des revendeurs -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3>Liste des Revendeurs</h3>
+            <div class="search-box">
+              <i class="bi bi-search"></i>
+              <input type="text" placeholder="Rechercher un revendeur..." [(ngModel)]="searchTerm">
+            </div>
+          </div>
+          
+          <div class="table-wrapper">
+            <table class="clients-table">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>responsable</th>
+                  <th>Téléphone</th>
+                  <th>Email</th>
+                  <th>matricule Fiscale</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="client-row" *ngFor="let revendeur of  getFilteredRevendeurs(); trackBy: trackByRevendeurId">
+                  <td>
+                    <div class="client-info">
+                      <div class="client-avatar revendeur-avatar">
+                        <i class="bi bi-shop"></i>
+                      </div>
+                      <div>
+                        <strong>{{ revendeur.nom }}</strong>
+                        <br>
+                        <small>{{ revendeur.idrevendeur }}</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{{ revendeur.responsable }}
+                    <span *ngIf="!revendeur.responsable">-</span>
+                  </td>
+                  <td>{{ revendeur.telephone }}
+                    <span *ngIf="!revendeur.telephone">-</span>
+                  </td>
+                  <td>
+                    <a href="mailto:{{ revendeur.email }}" class="email-link" *ngIf="revendeur.email">
+                      {{ revendeur.email }}
+                    </a>
+                    <span *ngIf="!revendeur.email">-</span>
+                  </td>
+                  <td>{{ revendeur.MF }}
+                    <span *ngIf="!revendeur.MF">-</span>
+                  </td>
+                  <td class="actions-cell">
+                    <div class="action-buttons">
+                      <button class="btn-edit" title="Modifier" (click)="update(revendeur.idrevendeur)">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn-delete" title="Supprimer" (click)="delete(revendeur.idrevendeur)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+    

@@ -1,0 +1,846 @@
+
+  @if(reclamation?.statut === 'Non Planifié'){
+    <main class="main-content" [class.sidebar-collapsed]="isCollapsed">
+        <div class="content-wrapper">
+          <!-- Header avec navigation -->
+          <div class="form-header">
+            <button (click)="goBack()" class="back-btn">
+              <i class="bi bi-arrow-left"></i>
+              Retour
+            </button>
+            <div class="header-content">
+              <h1>Modifier une réclamation</h1>
+              <p>Remplissez les informations pour Modifier une Réclamation</p>
+            </div>
+          </div>
+        
+          <!-- Message d'erreur/succès -->
+          <div class="message-container" *ngIf="message">
+            <div class="message" [class.error]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide') ">
+              <i class="bi" [class.bi-exclamation-triangle]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')" 
+                 [class.bi-check-circle]="!message.includes('Erreur') && !message.includes('obligatoire') && !message.includes('invalide')"></i>
+              {{ message }}
+              <button class="close-message" (click)="clearMessage()">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          </div>
+        
+          <!-- Formulaire -->
+          <form (ngSubmit)="onsubmit()" class="client-form">
+            <div class="form-grid">
+              <!-- Informations personnelles -->
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-people"></i>
+                  <h3>Client</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                    <label for="client" class="required">Client</label>
+                    <select id="client" name="client" [(ngModel)]="Selectedclient" class="form-select" required (change)="onClientChange()">
+                      <option value="">Sélectionnez un client</option>
+                      <option *ngFor="let c of clients" [value]="c.idclient">
+                        {{ c.nom }} {{ c.prenom }}
+                      </option>
+                      
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="marque">Personne à contacter</label>
+                    <input 
+                      type="text" 
+                      id="personneAcontacter" 
+                      name="personneAcontacter" 
+                      [(ngModel)]="personneAcontacter" 
+                      class="form-input"
+                      readonly
+                    >
+                  </div>
+                                  
+                <div class="form-group">
+                  <label for="telPersonneAcontacter">Numéro du téléphone</label>
+                  <input 
+                    type="text" 
+                    id="telPersonneAcontacter" 
+                    name="telPersonneAcontacter" 
+                    [(ngModel)]="telPersonneAcontacter" 
+                    class="form-input"
+                    readonly
+                  >
+                </div>
+              </div>
+        <!--  //////////////////////////////////////////////////////////// -->
+               <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-shop"></i>
+                  <h3>Revendeur</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" class="required">Revendeur</label>
+                  <select id="revendeur" name="revendeur" [(ngModel)]="Selectedrevendeur" class="form-select" required>
+                    <option value="">Sélectionnez un revendeur</option>
+                    <option *ngFor="let r of revendeurs" [value]="r.idrevendeur">
+                      {{ r.nom }} 
+                    </option>
+                  </select>
+                </div>
+              </div>
+        <!--  //////////////////////////////////////////////////////////// -->
+             
+               <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-box-seam"></i>
+                  <h3>Article</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" class="required">Article</label>
+                  <select id="article" name="article" [(ngModel)]="Selectedarticle" class="form-select" required>
+                    <option value="">Sélectionnez un article</option>
+                    <option *ngFor="let a of articles" [value]="a.idarticle">
+                      {{ a.modele }} - {{a.famille}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="tva">Numéro Série</label>
+                  <input 
+                    type="text" 
+                    id="numS" 
+                    name="numS" 
+                    [(ngModel)]="numS" 
+                    class="form-input"
+                    readonly
+                  >
+                </div>
+              </div> 
+              <!-- ////////////////////////////////////////////////////////////////// -->
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-gear"></i>
+                  <h3>Intervention</h3>
+                </div>
+
+                <div class="form-group">
+                  <label for="typeInter" class="required">Type d'intervention</label>
+                  <select id="typeInter" name="typeInter" [(ngModel)]="typeInter" class="form-select" required>
+                    <option value=""></option>
+                    <option value="installation">installation</option>
+                  <option value="réparation">réparation</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="typeRegulation" class="required">Type du règlement</label>
+                  <select id="typeRegulation" name="typeRegulation" [(ngModel)]="typeRegulation" class="form-select" required>
+                    <option value=""></option>
+                    <option value="paiement sur le client">paiement sur le client</option>
+                  <option value="paiement sur le revendeur">paiement sur le revendeur</option>
+                  </select>
+                </div>
+              </div> 
+
+              <!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-person-gear"></i>
+                  <h3>Technicien</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" >Technicien</label>
+                  <select id="technicien" name="technicien" [(ngModel)]="Selectedtechnicien" class="form-select" required>
+                    <option value="">Sélectionnez un Technicien</option>
+                    <option *ngFor="let t of techniciens" [value]="t.idtechnicien">
+                      {{ t.nom }} 
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="daterdv" >Date de prochain Rendez vous</label>
+                 <input type="date" name="rdv" id="rdv" [(ngModel)]="rdv">
+                </div>
+
+                <div class="form-group">
+                  <label for="heure" >Heure Début</label>
+                 <input type="time" name="heure" id="heure" [(ngModel)]="heure">
+                </div>
+              </div> 
+
+
+              <!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-journal"></i>
+                  <h3>Note SAV</h3>
+                </div>
+                <div class="form-group">
+                <textarea name="noteSav" id="noteSav" rows="5" cols="30"  [(ngModel)]="noteSav"  placeholder="Note SAV"></textarea>
+                </div>
+              </div> 
+
+
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-journal"></i>
+                  <h3>Note Technicien</h3>
+                </div>
+                <div class="form-group">
+                <textarea name="noteTech" id="noteTech" rows="5" cols="30"  [(ngModel)]="noteTech"  placeholder="Note Technicien"></textarea>
+                </div>
+              </div>
+              
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-file-earmark-text"></i>
+                  <h3>Fichiers</h3>
+                </div>
+                <div class="form-group">
+                  <input type="file" placeholder="Ajouter un fichier" name="file" id="file">
+                </div>
+              </div> 
+              
+
+
+             
+            </div>
+        
+            <div class="form-actions">
+              <button type="button" (click)="goBack()" class="btn-secondary">
+                <i class="bi bi-x-circle"></i>
+                Annuler
+              </button>
+              <button type="submit" class="btn-primary" [disabled]="isLoading">
+                <i class="bi" [class.bi-plus-circle]="!isLoading" [class.bi-hourglass-split]="isLoading"></i>
+                {{ isLoading ? 'Modification en cours...' : 'Modifier Réclamation' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+    }
+    @else
+    {
+
+      @if(reclamation?.statut === 'Planifié')
+      {      
+      <main class="main-content" [class.sidebar-collapsed]="isCollapsed">
+        <div class="content-wrapper">
+          <!-- Header avec navigation -->
+          <div class="form-header">
+            <button (click)="goBack()" class="back-btn">
+              <i class="bi bi-arrow-left"></i>
+              Retour
+            </button>
+            <div class="header-content">
+              <h1>Modifier une réclamation</h1>
+              <p>Remplissez les informations pour Modifier  une Réclamation</p>
+            </div>
+          </div>
+        
+          <!-- Message d'erreur/succès -->
+          <div class="message-container" *ngIf="message">
+            <div class="message" [class.error]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide') ">
+              <i class="bi" [class.bi-exclamation-triangle]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')" 
+                 [class.bi-check-circle]="!message.includes('Erreur') && !message.includes('obligatoire') && !message.includes('invalide')"></i>
+              {{ message }}
+              <button class="close-message" (click)="clearMessage()">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          </div>
+        
+          <!-- Formulaire -->
+          <form (ngSubmit)="onsubmit()" class="client-form">
+            <div class="form-grid">
+              <!-- Informations personnelles -->
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-people"></i>
+                  <h3>Client</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                    <label for="client" class="required">Client</label>
+                    <select id="client" name="client" [(ngModel)]="Selectedclient" class="form-select" required (change)="onClientChange()">
+                      <option value="">Sélectionnez un client</option>
+                      <option *ngFor="let c of clients" [value]="c.idclient">
+                        {{ c.nom }} {{ c.prenom }}
+                      </option>
+                      
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="marque">Personne à contacter</label>
+                    <input 
+                      type="text" 
+                      id="personneAcontacter" 
+                      name="personneAcontacter" 
+                      [(ngModel)]="personneAcontacter" 
+                      class="form-input"
+                      readonly
+                    >
+                  </div>
+                                  
+                <div class="form-group">
+                  <label for="telPersonneAcontacter">Numéro du téléphone</label>
+                  <input 
+                    type="text" 
+                    id="telPersonneAcontacter" 
+                    name="telPersonneAcontacter" 
+                    [(ngModel)]="telPersonneAcontacter" 
+                    class="form-input"
+                    readonly
+                  >
+                </div>
+              </div>
+        <!--  //////////////////////////////////////////////////////////// -->
+               <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-shop"></i>
+                  <h3>Revendeur</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" class="required">Revendeur</label>
+                  <select id="revendeur" name="revendeur" [(ngModel)]="Selectedrevendeur" class="form-select" required>
+                    <option value="">Sélectionnez un revendeur</option>
+                    <option *ngFor="let r of revendeurs" [value]="r.idrevendeur">
+                      {{ r.nom }} 
+                    </option>
+                  </select>
+                </div>
+              </div>
+        <!--  //////////////////////////////////////////////////////////// -->
+             
+               <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-box-seam"></i>
+                  <h3>Article</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" class="required">Article</label>
+                  <select id="article" name="article" [(ngModel)]="Selectedarticle" class="form-select" required>
+                    <option value="">Sélectionnez un article</option>
+                    <option *ngFor="let a of articles" [value]="a.idarticle">
+                      {{ a.modele }} - {{a.famille}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="tva">Numéro Série</label>
+                  <input 
+                    type="text" 
+                    id="numS" 
+                    name="numS" 
+                    [(ngModel)]="numS" 
+                    class="form-input"
+                    readonly
+                  >
+                </div>
+              </div> 
+              <!-- ////////////////////////////////////////////////////////////////// -->
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-gear"></i>
+                  <h3>Intervention</h3>
+                </div>
+
+                <div class="form-group">
+                  <label for="typeInter" class="required">Type d'intervention</label>
+                  <select id="typeInter" name="typeInter" [(ngModel)]="typeInter" class="form-select" required>
+                    <option value=""></option>
+                    <option value="installation">installation</option>
+                  <option value="réparation">réparation</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="typeRegulation" class="required">Type du règlement</label>
+                  <select id="typeRegulation" name="typeRegulation" [(ngModel)]="typeRegulation" class="form-select" required>
+                    <option value=""></option>
+                    <option value="paiement sur le client">paiement sur le client</option>
+                  <option value="paiement sur le revendeur">paiement sur le revendeur</option>
+                  </select>
+                </div>
+              </div> 
+
+              <!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-person-gear"></i>
+                  <h3>Technicien</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" >Technicien</label>
+                  <select id="technicien" name="technicien" [(ngModel)]="Selectedtechnicien" class="form-select" required>
+                    <option value="">Sélectionnez un Technicien</option>
+                    <option *ngFor="let t of techniciens" [value]="t.idtechnicien">
+                      {{ t.nom }} 
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="daterdv" >Date de prochain Rendez vous</label>
+                 <input type="date" name="rdv" id="rdv" [(ngModel)]="rdv">
+                </div>
+
+                <div class="form-group">
+                  <label for="heure" >Heure Début</label>
+                 <input type="time" name="heure" id="heure" [(ngModel)]="heure">
+                </div>
+              </div> 
+
+
+              <!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-journal"></i>
+                  <h3>Note SAV</h3>
+                </div>
+                <div class="form-group">
+                <textarea name="noteSav" id="noteSav" rows="5" cols="30"  [(ngModel)]="noteSav"  placeholder="Note SAV"></textarea>
+                </div>
+              </div> 
+
+                <div class="form-section etat-visite">
+                  <div class="section-header">
+                    <i class="bi bi-calendar-check"></i>
+                    <h3>Etat Visite</h3>
+                  </div>
+                  <div class="form-group">
+                    <label for="etatTermine">Visite Terminée</label>
+                    <input type="checkbox" name="etatTermine" id="etatTermine" [(ngModel)]="etatTermine">
+                      
+                    @if(etatTermine == false){
+                    <label for="etatVisite">état visite</label>
+                    <select name="etatVisite" id="etatVisite" [(ngModel)]="etatVisite">
+                      <option value="Client injoiniable">Client injoiniable</option>
+                      <option value="En cours">Réparation difficile</option>
+                      <option value="en Attente Produit">en Attente Produit</option>
+                      <option value="Produit Non Dispo">Produit Non Dispo</option>
+                    </select>
+                  }
+                  </div>
+                </div>
+
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-journal"></i>
+                  <h3>Note Technicien</h3>
+                </div>
+                <div class="form-group">
+                <textarea name="noteTech" id="noteTech" rows="5" cols="30"  [(ngModel)]="noteTech"  placeholder="Note Technicien"></textarea>
+                </div>
+              </div>
+              
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-file-earmark-text"></i>
+                  <h3>Fichiers</h3>
+                </div>
+                <div class="form-group">
+                  <input type="file" placeholder="Ajouter un fichier" name="file" id="file">
+                </div>
+              </div> 
+              
+
+
+             
+            </div>
+        
+            <div class="form-actions">
+              <button type="button" (click)="goBack()" class="btn-secondary">
+                <i class="bi bi-x-circle"></i>
+                Annuler
+              </button>
+              <button type="submit" class="btn-primary" [disabled]="isLoading">
+                <i class="bi" [class.bi-plus-circle]="!isLoading" [class.bi-hourglass-split]="isLoading"></i>
+                {{ isLoading ? 'Modification en cours...' : 'Modifier Réclamation' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+     
+    }
+
+    @else
+    {
+
+
+      @if(reclamation?.statut === 'cloturé')
+      {      
+      <main class="main-content" [class.sidebar-collapsed]="isCollapsed">
+        <div class="content-wrapper">
+          <!-- Header avec navigation -->
+          <div class="form-header">
+            <button (click)="goBack()" class="back-btn">
+              <i class="bi bi-arrow-left"></i>
+              Retour
+            </button>
+            <div class="header-content">
+              <h1>Modifier une réclamation</h1>
+              <p>Remplissez les informations pour Modifier une Réclamation</p>
+            </div>
+          </div>
+        
+          <!-- Message d'erreur/succès -->
+          <div class="message-container" *ngIf="message">
+            <div class="message" [class.error]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide') ">
+              <i class="bi" [class.bi-exclamation-triangle]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')" 
+                 [class.bi-check-circle]="!message.includes('Erreur') && !message.includes('obligatoire') && !message.includes('invalide')"></i>
+              {{ message }}
+              <button class="close-message" (click)="clearMessage()">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          </div>
+          <div class="messageClose-container" role="alert">
+            <i class="bi bi-exclamation-circle-fill"></i>
+            <span class="messageClose-text">
+              Cette réclamation est terminée. Certains champs sont en lecture seule.
+            </span>
+          </div>
+          <!-- Formulaire -->
+          <form (ngSubmit)="onsubmit()" class="client-form">
+            <div class="form-grid">
+              <!-- Informations personnelles -->
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-people"></i>
+                  <h3>Client</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                    <label for="client" class="required">Client</label>
+                    <select id="client" name="client" [(ngModel)]="Selectedclient" class="form-select" disabled>
+                      <option value="">Sélectionnez un client</option>
+                      <option *ngFor="let c of clients" [value]="c.idclient">
+                        {{ c.nom }} {{ c.prenom }}
+                      </option>
+                      
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="marque">Personne à contacter</label>
+                    <input 
+                      type="text" 
+                      id="personneAcontacter" 
+                      name="personneAcontacter" 
+                      [(ngModel)]="personneAcontacter" 
+                      class="form-input"
+                      readonly
+                    >
+                  </div>
+                                  
+                <div class="form-group">
+                  <label for="telPersonneAcontacter">Numéro du téléphone</label>
+                  <input 
+                    type="text" 
+                    id="telPersonneAcontacter" 
+                    name="telPersonneAcontacter" 
+                    [(ngModel)]="telPersonneAcontacter" 
+                    class="form-input"
+                    readonly
+                  >
+                </div>
+              </div>
+        <!--  //////////////////////////////////////////////////////////// -->
+               <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-shop"></i>
+                  <h3>Revendeur</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" class="required">Revendeur</label>
+                  <select id="revendeur" name="revendeur" [(ngModel)]="Selectedrevendeur" class="form-select" disabled>
+                    <option value="">Sélectionnez un revendeur</option>
+                    <option *ngFor="let r of revendeurs" [value]="r.idrevendeur">
+                      {{ r.nom }} 
+                    </option>
+                  </select>
+                </div>
+              </div>
+        <!--  //////////////////////////////////////////////////////////// -->
+             
+               <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-box-seam"></i>
+                  <h3>Article</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" class="required">Article</label>
+                  <select id="article" name="article" [(ngModel)]="Selectedarticle" class="form-select" disabled>
+                    <option value="">Sélectionnez un article</option>
+                    <option *ngFor="let a of articles" [value]="a.idarticle">
+                      {{ a.modele }} - {{a.famille}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="tva">Numéro Série</label>
+                  <input 
+                    type="text" 
+                    id="numS" 
+                    name="numS" 
+                    [(ngModel)]="numS" 
+                    class="form-input"
+                    readonly
+                  >
+                </div>
+              </div> 
+              <!-- ////////////////////////////////////////////////////////////////// -->
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-gear"></i>
+                  <h3>Intervention</h3>
+                </div>
+
+                <div class="form-group">
+                  <label for="typeInter" class="required">Type d'intervention</label>
+                  <select id="typeInter" name="typeInter" [(ngModel)]="typeInter" class="form-select" disabled>
+                    <option value=""></option>
+                    <option value="installation">installation</option>
+                  <option value="réparation">réparation</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="typeRegulation" class="required">Type du règlement</label>
+                  <select id="typeRegulation" name="typeRegulation" [(ngModel)]="typeRegulation" class="form-select" disabled>
+                    <option value=""></option>
+                    <option value="paiement sur le client">paiement sur le client</option>
+                  <option value="paiement sur le revendeur">paiement sur le revendeur</option>
+                  </select>
+                </div>
+              </div> 
+
+              <!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-person-gear"></i>
+                  <h3>Technicien</h3>
+                  <button type="button" (click)="goBack()" ><i class="bi bi-plus-circle-fill"></i></button>
+                </div>
+
+                <div class="form-group">
+                  <label for="revendeur" >Technicien</label>
+                  <select id="technicien" name="technicien" [(ngModel)]="Selectedtechnicien" class="form-select" disabled>
+                    <option value="">Sélectionnez un Technicien</option>
+                    <option *ngFor="let t of techniciens" [value]="t.idtechnicien">
+                      {{ t.nom }} 
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="daterdv" >Date de prochain Rendez vous</label >
+                 <input type="date" name="rdv" id="rdv" [(ngModel)]="rdv" disabled>
+                </div>
+
+                <div class="form-group">
+                  <label for="heure" >Heure Début</label>
+                 <input type="time" name="heure" id="heure" [(ngModel)]="heure" disabled>
+                </div>
+              </div> 
+
+
+              <!-- ///////////////////////////////////////////////////////////////////////////////// -->
+
+            
+
+              <div class="form-section-service-cout">
+                <div class="section-header   service-cout">
+                  <i class="bi bi-cash-stack"></i>
+                  <h3>Services et Coûts</h3>
+                </div>
+                <div class="form-group form-group-row">
+                  <div class="input-block">
+                    <label for="partTech">Part Technicien</label>
+                    <input type="number" name="PartTech" id="partTech" [(ngModel)]="partTech" class="form-input" readonly>
+                  </div>
+                  <div class="input-block">
+                    <label for="partESE">Part d'Entreprise</label>
+                    <input type="number" name="PartESE" id="partESE" [(ngModel)]="partESE" class="form-input" readonly>
+                  </div>
+                  <div class="input-block">
+                    <label for="cout">Les coûts</label>
+                    <input type="number" name="cout" id="cout" [(ngModel)]="cout" class="form-input" readonly>
+                  </div>
+                </div>
+                <div class="All-items">
+                <div class="form-group form-group-Article">
+   <div *ngFor="let art of articlesSelectionnes; let i = index" class="articleSelectionne">
+     <label>Article</label>
+     <input type="text" [value]="art.modele" readonly />
+
+     <label>Prix</label>
+    <input type="number" [(ngModel)]="art.prixHT" (ngModelChange)="recalculerTotaux()" name="prix{{i}}" min="0" />
+     <label>Quantité</label>
+     <input type="number" [(ngModel)]="art.qte" (ngModelChange)="recalculerTotaux()" (ngModelChange)="recalculerTotaux()" name="qte{{i}}" min="1" />
+     <label>Remise</label>
+     <input type="number" [(ngModel)]="art.remise" (ngModelChange)="recalculerTotaux()" name="remise{{i}}" min="0" />
+
+     <button type="button" (click)="DeleteArt(art.id)"><i class="bi bi-trash3-fill"></i></button>
+   </div>
+                </div>
+
+<div class="form-group form-group-Service">
+       <div *ngFor="let serv of servicesSelectionnes; let j = index" class="serviceSelectionne">
+          <label>Service</label>
+          <input type="text" [value]="serv.nom" readonly />
+
+          <label>Prix Service</label>
+          <input type="number" [(ngModel)]="serv.montant"  (ngModelChange)="onMontantChange(serv)" (ngModelChange)="recalculerTotaux()" name="prixS{{j}}" min="0" />
+
+          <label>part Technicien</label> 
+          <input type="number" [(ngModel)]="serv.partTech"    (ngModelChange)="onPartTechChange(serv)" (ngModelChange)="recalculerTotaux()" name="partTechS{{j}}" min="1" />
+
+          <label>part Entreprise</label>
+          <input type="number" [(ngModel)]="serv.partESE" (ngModelChange)="recalculerTotaux()" name="parteseS{{j}}" min="1"    readonly />
+
+          <label>Remise</label>
+          <input type="number" [(ngModel)]="serv.remise" (ngModelChange)="recalculerTotaux()" name="remiseS{{j}}" min="0" />
+
+           <button type="button" (click)="DeleteServ(serv.id)"><i class="bi bi-trash3-fill"></i></button>
+   </div>
+</div>
+</div>
+
+
+
+                <div class="buttons">
+                  <button class="btn-Art"  type="button" (click)="ouvrirPopup('article')">Ajouter un Article</button>
+                  <button class="btn-Serv" type="button" (click)="ouvrirPopup('service')">Ajouter un Service</button>
+                </div>
+              </div>
+
+
+
+
+                <div class="form-section etat-visite">
+                  <div class="section-header">
+                    <i class="bi bi-calendar-check"></i>
+                    <h3>Etat Visite</h3>
+                  </div>
+                  <div class="form-group">
+                    <label for="etatTermine">Visite Terminée</label>
+                    <input type="checkbox" name="etatTermine" id="etatTermineClose" [(ngModel)]="etatTermineClose"  disabled>
+                    @if(etatTermineClose == false){
+                    <label for="etatVisite">état visite</label>
+                    <select name="etatVisite" id="etatVisite" [(ngModel)]="etatVisite">
+                      <option value="Client injoiniable">Client injoiniable</option>
+                      <option value="En cours">Réparation difficile</option>
+                      <option value="en Attente Produit">en Attente Produit</option>
+                      <option value="Produit Non Dispo">Produit Non Dispo</option>
+                    </select>
+                  }
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <div class="section-header">
+                    <i class="bi bi-journal"></i>
+                    <h3>Note SAV</h3>
+                  </div>
+                  <div class="form-group">
+                  <textarea name="noteSav" id="noteSav" rows="5" cols="30"  [(ngModel)]="noteSav"  placeholder="Note SAV"></textarea>
+                  </div>
+                </div> 
+
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-journal"></i>
+                  <h3>Note Technicien</h3>
+                </div>
+                <div class="form-group">
+                <textarea name="noteTech" id="noteTech" rows="5" cols="30"  [(ngModel)]="noteTech"  placeholder="Note Technicien"></textarea>
+                </div>
+              </div>
+              
+
+              <div class="form-section">
+                <div class="section-header">
+                  <i class="bi bi-file-earmark-text"></i>
+                  <h3>Fichiers</h3>
+                </div>
+                <div class="form-group">
+                  <input type="file" placeholder="Ajouter un fichier" name="file" id="file">
+                </div>
+              </div> 
+              
+
+
+             
+            </div>
+        
+            <div class="form-actions">
+              <button type="button" (click)="goBack()" class="btn-secondary">
+                <i class="bi bi-x-circle"></i>
+                Annuler
+              </button>
+              <button type="submit" class="btn-primary" [disabled]="isLoading">
+                <i class="bi" [class.bi-plus-circle]="!isLoading" [class.bi-hourglass-split]="isLoading"></i>
+                {{ isLoading ? 'Modification en cours...' : 'Modifier Réclamation' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+     
+    }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+  }

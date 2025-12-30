@@ -1,0 +1,331 @@
+<!-- Header principal -->
+<header class="main-header">
+    <div class="header-container">
+      <img src="assets/images/image.png" alt="logo" class="logo-avatar" 
+               onerror="this.src='assets/images/user-avatar-male-5.svg'">
+      <div class="user-profile">
+        <button class="profile-btn" [matMenuTriggerFor]="menu">
+          <div class="profile-avatar">
+            <i class="bi bi-person-circle"></i>
+          </div>
+          <span class="profile-name">{{ NomEtPrenom }}</span>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i> Déconnexion
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Container principal avec sidebar et contenu -->
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" [class.collapsed]="isCollapsed">
+      <div class="sidebar-header">
+        <button class="toggle-btn" (click)="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+      <nav class="sidebar-nav" *ngIf="!isCollapsed">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a  (click)="ToArticle()"  class="nav-link">
+              <i class="bi bi-box"></i>
+              <span>Articles</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToClient()" class="nav-link">
+              <i class="bi bi-people"></i>
+              <span>Clients</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToRevendeur()" class="nav-link">
+              <i class="bi bi-shop"></i>
+              <span>Revendeurs</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToService()" class="nav-link">
+              <i class="bi bi-gear"></i>
+              <span>Services</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToTechnicien()" class="nav-link">
+              <i class="bi bi-tools"></i>
+              <span>Techniciens</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link">
+              <i class="bi bi-exclamation-triangle"></i>
+              <span>Réclamations</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-receipt"></i>
+              <span>Factures</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-file-text"></i>
+              <span>Devis</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+
+      <nav class="sidebar-nav" *ngIf="isCollapsed">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a  (click)="ToArticle()"  class="nav-link">
+              <i class="bi bi-box"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToClient()" class="nav-link">
+              <i class="bi bi-people"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToRevendeur()" class="nav-link">
+              <i class="bi bi-shop"></i>
+
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToService()" class="nav-link">
+              <i class="bi bi-gear"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="ToTechnicien()" class="nav-link">
+              <i class="bi bi-tools"></i>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link">
+              <i class="bi bi-exclamation-triangle"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-receipt"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="bi bi-file-text"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </aside>
+  
+    <main class="main-content" [class.sidebar-collapsed]="isCollapsed">
+      
+      
+      <router-outlet></router-outlet>
+      
+  
+      <div class="content-wrapper" *ngIf="!router.url.includes('UpdateReclamation') && !router.url.includes('AddReclamation')">
+        <!-- En-tête de page -->
+        <div class="page-header">
+          <div class="page-title">
+            <h2>Gestion des Réclamations</h2>
+            <p>Gérez vos Réclamations et leurs informations</p>
+          </div>
+          <button class="btn-primary" (click)="create()">
+            <i class="bi bi-plus-circle"></i>
+            Ajouter une Réclamation
+          </button>
+        </div>
+  
+        <!-- Statistiques -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ reclamations.length }}</h3>
+              <p>Réclamations totales</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-check-circle-fill"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{  getNombreReclamationsCloturees() }}</h3>
+              <p>Réclamations clôturées</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-calendar-event-fill"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ getNombreReclamationsCeMois()}}</h3>
+              <p>Réclamations ce mois</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-currency-euro"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{  getTotalMontantReclamations() }}</h3>
+              <p>Montant total des réclamations</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Table des clients -->
+        <div class="table-container">
+          <div class="table-header">
+            <h3>Liste des Réclamations</h3>
+            <div class="search-box">
+              <i class="bi bi-search"></i>
+              <input type="text" placeholder="Rechercher une Réclamation..." [(ngModel)]="searchTerm">
+            </div>
+          </div>
+          
+          <div class="table-wrapper">
+            <table class="clients-table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Client</th>
+                  <th>Num Tel</th>
+                  <th>Tél PAC</th>
+                  <th>Adresse</th>
+                  <th>Zone</th>
+                  <th>Revendeur</th>
+                  <th>Articles</th>
+                  <th>Modèle</th>
+                  <th>Technicien</th>
+                  <th>Type Intervention</th>
+                  <th>Type Règlement</th>
+                  <th>Date Randez Vous</th>
+                  <th>Note SAV</th>
+                  <th>Note Technicien</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="client-row" *ngFor="let reclamation of getFilteredReclamation(); trackBy: trackByReclamationId">
+                  <td>
+                    <div class="client-info">
+                      <div class="client-avatar reclamation-avatar">
+                        <i class="bi bi-exclamation-triangle"></i>
+                      </div>
+                      <div>
+                        <strong>{{ reclamation.idreclamation }}</strong>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="client-info">
+                      <div class="client-avatar cli-avatar">
+                        <i class="bi bi-person"></i>
+                      </div>
+                      <div>
+                        <strong>{{ reclamation.client?.prenom}} {{ reclamation.client?.nom || '-' }}</strong>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>{{ reclamation.client?.tel1 || '-' }}</td>
+
+                  <td>
+                    {{reclamation.client?.telPersonneAcontacter || '-'}}
+                  </td>
+                  
+                  <td>{{ reclamation.client?.adresse || '-' }}</td>
+
+                  <td>{{ reclamation.client?.zone || '-' }}</td>
+                  <td>
+                  <div class="client-info">
+                    <div class="client-avatar revendeur-avatar">
+                      <i class="bi bi-shop"></i>
+                    </div>
+                    <div>
+                 {{ reclamation.revendeur?.nom || '-' }}
+                    </div>
+                  </div>
+                  </td>
+                  <td>
+                    <div class="client-info">
+                      <div class="client-avatar article-avatar">
+                        <i class="bi bi-box-seam"></i>
+                      </div>
+                      <div>
+                    {{ reclamation.article?.marque || '-' }}
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>{{ reclamation.article?.modele || '-' }}</td>
+
+                  <td>
+                    <div class="client-info">
+                      <div class="client-avatar technicien-avatar">
+                        <i class="bi bi-tools"></i>
+                      </div>
+                      <div>
+                        <strong>{{ reclamation.technicien?.prenom || '-' }}</strong>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>{{ reclamation.typeInter || '-' }}</td>
+
+                  <td>{{ reclamation.typeRegulation || '-' }}</td>
+
+                  <td>{{ reclamation.DateRandezVous || '-' }}</td>
+
+                  <td>{{ reclamation.noteSAV || '-' }}</td>
+
+                  <td>{{ reclamation.noteTech || '-' }}</td>
+                  
+
+                  <td>
+                    <span [ngClass]="{
+                      'statut-non-planifie': reclamation.statut === 'Non Planifié',
+                      'statut-close': reclamation.statut === 'close',
+                      'statut-clôture': reclamation.statut === 'cloturé',
+                      'statut-planifie': reclamation.statut === 'Planifié'
+                    }">
+                      {{ reclamation.statut || '-' }}
+                    </span>
+                  </td>
+
+                  <td class="actions-cell">
+                    <div class="action-buttons">
+                      <button class="btn-edit" title="Modifier" (click)="update(reclamation.idreclamation) ">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn-delete" title="Supprimer">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+    

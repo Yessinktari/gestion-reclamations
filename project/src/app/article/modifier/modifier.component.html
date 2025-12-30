@@ -1,0 +1,161 @@
+<div class="add-client-container">
+    <!-- Header avec navigation -->
+    <div class="form-header">
+      <button (click)="goBack()" class="back-btn">
+        <i class="bi bi-arrow-left"></i>
+        Retour
+      </button>
+      <div class="header-content">
+        <h1>Modifier un Article</h1>
+        <p>Remplissez les informations pour Modifier un Article</p>
+      </div>
+    </div>
+  
+    <!-- Message d'erreur/succès -->
+    <div class="message-container" *ngIf="message">
+      <div class="message" [class.error]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')">
+        <i class="bi" [class.bi-exclamation-triangle]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')" 
+           [class.bi-check-circle]="!message.includes('Erreur') && !message.includes('obligatoire') && !message.includes('invalide')"></i>
+        {{ message }}
+        <button class="close-message" (click)="clearMessage()">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+    </div>
+  
+    <!-- Formulaire -->
+    <form (ngSubmit)="onUpdate()" class="client-form">
+      <div class="form-grid">
+      
+        <div class="form-section">
+          <div class="section-header">
+            <i class="bi bi-person-circle"></i>
+            <h3>Fiche Technique </h3>
+          </div>
+          <div class="form-group">
+            <label for="nom" >Famille</label>
+            <input 
+              type="text" 
+              id="famille" 
+              name="famille" 
+              [(ngModel)]="famille"  
+              placeholder="Entrez le famille d'article"
+              class="form-input"
+            >
+          </div>
+          <div class="form-group">
+            <label for="unite">Unité</label>
+            <input 
+              type="text" 
+              id="unite" 
+              name="unite" 
+              [(ngModel)]="unite" 
+              placeholder="Entrez le unite du article"
+              class="form-input"
+            >
+          </div>
+          <div class="form-group">
+            <label for="marque">Marque</label>
+            <input 
+              type="text" 
+              id="marque" 
+              name="marque" 
+              [(ngModel)]="marque" 
+              placeholder="Marque d'article "
+              class="form-input"
+            >
+          </div>
+        </div>
+  
+        <!-- Informations de contact -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="bi bi-telephone"></i>
+            <h3>Détails d'article</h3>
+          </div>
+          <div class="form-group">
+            <label for="modele">Modéle</label>
+            <input 
+              type="text" 
+              id="modele" 
+              name="modele" 
+              [(ngModel)]="modele" 
+              placeholder=" Modéle d'Article "
+              class="form-input"
+            >
+          </div>
+          <div class="form-group">
+            <label for="libelle" class="required">Libellé</label>
+            <input 
+              type="text" 
+              id="libelle" 
+              name="libelle" 
+              required
+              [(ngModel)]="libelle" 
+              placeholder="Libellé d'Article"
+              class="form-input"
+            >
+          </div>
+        </div>
+  
+        <!-- Informations d'adresse -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="bi bi-geo-alt"></i>
+            <h3>Détails Prix</h3>
+          </div>
+          <div class="form-group">
+            <label for="prixht" class="required">Prix HT</label>
+            <input 
+              type="number" 
+              id="prixHT" 
+              name="prixHT" 
+              [(ngModel)]="prixHT" 
+              min="0"
+              required
+              placeholder="prix Hors TVA"
+              class="form-input"
+              (input)="updatePrixTTC()"
+            >
+          </div>
+          <div class="form-group">
+            <label for="tva">TVA</label>
+            <input 
+              type="number" 
+              id="TVA" 
+              name="TVA" 
+              [(ngModel)]="TVA" 
+              placeholder="TVA"
+              min="0"
+              class="form-input"
+              (input)="updatePrixTTC()"
+            >
+          </div>
+          <div class="form-group">
+            <label for="prixTTC">Prix TTC</label>
+            <input 
+              type="text" 
+              id="prixTTC" 
+              name="prixTTC" 
+              [(ngModel)]="prixTTC" 
+              placeholder="prix TTC "
+              class="form-input"
+              readonly
+            >
+          </div>
+        </div>
+      <!-- Boutons d'action -->
+      <div class="form-actions">
+        <button type="button" (click)="goBack()" class="btn-secondary">
+          <i class="bi bi-x-circle"></i>
+          Annuler
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="isLoading">
+          <i class="bi" [class.bi-plus-circle]="!isLoading" [class.bi-hourglass-split]="isLoading"></i>
+          {{ isLoading ? 'Modification en cours...' : 'Modifier ' }}
+        </button>
+      </div>
+      </div>
+    </form>
+
+  

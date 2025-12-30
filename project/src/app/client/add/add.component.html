@@ -1,0 +1,239 @@
+<div class="add-client-container">
+  <!-- Header avec navigation -->
+  <div class="form-header">
+    <button (click)="goBack()" class="back-btn">
+      <i class="bi bi-arrow-left"></i>
+      Retour
+    </button>
+    <div class="header-content">
+      <h1>Ajouter un nouveau client</h1>
+      <p>Remplissez les informations pour créer un nouveau client</p>
+    </div>
+  </div>
+
+  <!-- Message d'erreur/succès -->
+  <div class="message-container" *ngIf="message">
+    <div class="message" [class.error]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')">
+      <i
+        class="bi"
+        [class.bi-exclamation-triangle]="message.includes('Erreur') || message.includes('obligatoire') || message.includes('invalide')"
+        [class.bi-check-circle]="!message.includes('Erreur') && !message.includes('obligatoire') && !message.includes('invalide')"
+      ></i>
+      {{ message }}
+      <button class="close-message" (click)="clearMessage()">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Formulaire -->
+  <form (ngSubmit)="onsubmit()" class="client-form">
+    <div class="form-grid">
+
+      <!-- Informations personnelles -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="bi bi-person-circle"></i>
+          <h3>Informations personnelles</h3>
+        </div>
+        <div class="form-group">
+          <label for="nom" class="required">Nom *</label>
+          <input
+            type="text"
+            id="nom"
+            name="nom"
+            [(ngModel)]="nom"
+            required
+            placeholder="Entrez le nom du client"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="prenom">Prénom</label>
+          <input
+            type="text"
+            id="prenom"
+            name="prenom"
+            [(ngModel)]="prenom"
+            placeholder="Entrez le prénom du client"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="personneAcontacter">Personne à contacter</label>
+          <input
+            type="text"
+            id="personneAcontacter"
+            name="personneAcontacter"
+            [(ngModel)]="personneAcontacter"
+            placeholder="Nom de la personne à contacter"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="telPersonneAcontacter" class="required">Téléphone personne à contacter *</label>
+          <input
+            type="tel"
+            id="telPersonneAcontacter"
+            name="telPersonneAcontacter"
+            [(ngModel)]="telPersonneAcontacter"
+            required
+            placeholder="+216 00 000 000"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <!-- Informations de contact -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="bi bi-telephone"></i>
+          <h3>Informations de contact</h3>
+        </div>
+        <div class="form-group">
+          <label for="tel1">Téléphone 1</label>
+          <input
+            type="tel"
+            id="tel1"
+            name="tel1"
+            [(ngModel)]="tel1"
+            placeholder="+216 11 111 111"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="tel2">Téléphone 2</label>
+          <input
+            type="tel"
+            id="tel2"
+            name="tel2"
+            [(ngModel)]="tel2"
+            placeholder="+216 22 222 222"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="client@exemple.com"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="MF">Matricule Fiscale</label>
+          <input
+            type="text"
+            id="MF"
+            name="MF"
+            [(ngModel)]="MF"
+            placeholder="Entrez le matricule fiscale"
+            class="form-input"
+          />
+        </div>
+      </div>
+
+      <!-- Informations d'adresse -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="bi bi-geo-alt"></i>
+          <h3>Informations d'adresse</h3>
+        </div>
+        <div class="form-group">
+          <label for="pays">Pays</label>
+          <input
+            type="text"
+            id="pays"
+            name="pays"
+            [(ngModel)]="pays"
+            placeholder="Tunisie"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="ville">Ville</label>
+          <input
+            type="text"
+            id="ville"
+            name="ville"
+            [(ngModel)]="ville"
+            placeholder="Sfax"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="manicipalite">Municipalité</label>
+          <input
+            type="text"
+            id="manicipalite"
+            name="manicipalite"
+            [(ngModel)]="manicipalite"
+            placeholder="Entrez la municipalité"
+            class="form-input"
+          />
+        </div>
+        <div class="form-group">
+          <label for="zone">Zone</label>
+          <select
+            id="zone"
+            name="zone"
+            [(ngModel)]="zone"
+            class="form-select"
+          >
+            <option value="">Sélectionnez une zone</option>
+            <option value="zone1">Zone 1</option>
+            <option value="zone2">Zone 2</option>
+            <option value="zone3">Zone 3</option>
+            <option value="zone4">Zone 4</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="adresse">Adresse</label>
+          <textarea
+            id="adresse"
+            name="adresse"
+            [(ngModel)]="adresse"
+            placeholder="Entrez l'adresse complète"
+            class="form-textarea"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="bi bi-sticky"></i>
+          <h3>Notes et commentaires</h3>
+        </div>
+        <div class="form-group">
+          <label for="note">Notes</label>
+          <textarea
+            id="note"
+            name="note"
+            [(ngModel)]="note"
+            placeholder="Ajoutez des notes ou commentaires sur le client..."
+            class="form-textarea"
+            rows="4"
+          ></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Boutons d'action -->
+    <div class="form-actions">
+      <button type="button" (click)="goBack()" class="btn-secondary">
+        <i class="bi bi-x-circle"></i>
+        Annuler
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        <i class="bi" [class.bi-plus-circle]="!isLoading" [class.bi-hourglass-split]="isLoading"></i>
+        {{ isLoading ? 'Création en cours...' : 'Créer le client' }}
+      </button>
+    </div>
+  </form>
+</div>
